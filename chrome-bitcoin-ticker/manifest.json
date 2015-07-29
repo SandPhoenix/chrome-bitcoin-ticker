@@ -1,0 +1,22 @@
+{
+  "name": "chrome-bitcoin-ticker",
+  "version": "1.0",
+  "description": "Check the latest bitcoin price from your browser",
+  "permissions": [
+    "http://api.coindesk.com/*",
+    "alarms"  
+  ],
+  "browser_action": {
+    "default_title": "Cryptocurrency is the way!",
+    "default_icon": "icon48.png"
+  },
+  "icons": {
+    "48": "icon48.png",
+    "128": "icon128.png" 
+  },
+  "background": {
+    "scripts": ["script.js"],
+    "persistent": true 
+  },
+  "manifest_version": 2
+}

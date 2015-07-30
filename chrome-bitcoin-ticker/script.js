@@ -17,7 +17,9 @@ chrome.alarms.onAlarm.addListener(function () {
 	xhr.onreadystatechange = function() {
 		if (xhr.readyState == 4) {
 			var result = (Math.round(JSON.parse(xhr.responseText)["bpi"]["USD"]["rate_float"]*10)/10).toString().slice(0,5);
-
+			if (result.indexOf(".") == -1) {
+				result += ".0";
+			}
 			chrome.browserAction.getBadgeText({}, function (badge) {
 				if (badge != result) {
 					if (parseFloat(badge) > parseFloat(result)){

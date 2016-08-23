@@ -10,7 +10,7 @@ chrome.alarms.create("",{
 	when: Date.now()
 });
 
-chrome.alarms.onAlarm.addListener(function () {
+function update() {
 	var xhr = new XMLHttpRequest();
 
 	xhr.open("GET", "http://api.coindesk.com/v1/bpi/currentprice.json", false);
@@ -22,12 +22,12 @@ chrome.alarms.onAlarm.addListener(function () {
 			}
 			chrome.browserAction.getBadgeText({}, function (badge) {
 				if (badge != result) {
-					if (parseFloat(badge) > parseFloat(result)){
+					if (parseInt(badge) > parseInt(result)){
 						chrome.browserAction.setBadgeBackgroundColor({color:[216, 20, 29,255]});		
 					}else{
 						chrome.browserAction.setBadgeBackgroundColor({color:[70, 198, 162,255]});
 					}
-					chrome.browserAction.setBadgeText({text: result});
+					chrome.browserAction.setBadgeText({text: parseInt(result).toString()});
 					sleep(0.5);
 					chrome.browserAction.setBadgeBackgroundColor({color:[47, 72, 130,255]});
 				}
@@ -35,5 +35,8 @@ chrome.alarms.onAlarm.addListener(function () {
 		}
 	};
 	xhr.send();
-});
+}
+
+chrome.alarms.onAlarm.addListener(update);
 chrome.browserAction.setBadgeBackgroundColor({color:[47, 72, 130,255]});
+update();
